@@ -20,25 +20,28 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"risewill.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Caspar的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Casapr&#39;s Blog">
-<meta property="og:url" content="https://risewill.github.io/archives/2021/07/index.html">
+<meta name="description" content="1.什么是源程序一个由0和1组成的位序列。位被组织处8个一组，称为字节，每个字节都表示程序中某个文本字符。 2.编译器驱动程序(compiler driver)在unix系统上执行编译器驱动程序将原文件转换为可执行目标文件 执行过程由四个阶段。 ·预处理阶段 ​    预处理器(cpp)根据字符#开头的命令，修改原始的C程序（program.c）,得到被修改的源程序。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解计算机系统（一）：计算机系统漫游">
+<meta property="og:url" content="https://risewill.github.io/2021/07/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
 <meta property="og:site_name" content="Casapr&#39;s Blog">
-<meta property="og:description" content="Caspar的博客">
+<meta property="og:description" content="1.什么是源程序一个由0和1组成的位序列。位被组织处8个一组，称为字节，每个字节都表示程序中某个文本字符。 2.编译器驱动程序(compiler driver)在unix系统上执行编译器驱动程序将原文件转换为可执行目标文件 执行过程由四个阶段。 ·预处理阶段 ​    预处理器(cpp)根据字符#开头的命令，修改原始的C程序（program.c）,得到被修改的源程序。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-29T01:54:51.000Z">
+<meta property="article:modified_time" content="2021-07-29T09:33:41.736Z">
 <meta property="article:author" content="Caspar">
+<meta property="article:tag" content="CSAPP">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://risewill.github.io/archives/2021/07/">
+<link rel="canonical" href="https://risewill.github.io/2021/07/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"archives/2021/07/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://risewill.github.io/2021/07/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/","path":"2021/07/29/深入理解计算机系统（一）/","title":"深入理解计算机系统（一）：计算机系统漫游"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>归档 | Casapr's Blog</title>
+<title>深入理解计算机系统（一）：计算机系统漫游 | Casapr's Blog</title>
   
 
 
@@ -104,7 +107,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -117,6 +120,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%BA%90%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">1.什么是源程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E7%BC%96%E8%AF%91%E5%99%A8%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F-compiler-driver"><span class="nav-number">2.</span> <span class="nav-text">2.编译器驱动程序(compiler driver)</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -181,69 +185,100 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 2 篇日志。 继续努力。</span>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://risewill.github.io/2021/07/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Caspar">
+      <meta itemprop="description" content="Caspar的博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Casapr's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深入理解计算机系统（一）：计算机系统漫游
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+
+      <time title="创建时间：2021-07-29 09:54:51 / 修改时间：17:33:41" itemprop="dateCreated datePublished" datetime="2021-07-29T09:54:51+08:00">2021-07-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h5 id="1-什么是源程序"><a href="#1-什么是源程序" class="headerlink" title="1.什么是源程序"></a>1.什么是源程序</h5><p>一个由0和1组成的位序列。位被组织处8个一组，称为字节，每个字节都表示程序中某个文本字符。</p>
+<h5 id="2-编译器驱动程序-compiler-driver"><a href="#2-编译器驱动程序-compiler-driver" class="headerlink" title="2.编译器驱动程序(compiler driver)"></a>2.编译器驱动程序(compiler driver)</h5><p>在unix系统上执行<strong>编译器驱动程序</strong>将原文件转换为<strong>可执行目标文件</strong></p>
+<p>执行过程由四个阶段。</p>
+<p><strong>·预处理阶段</strong></p>
+<p>​    预处理器(cpp)根据字符#开头的命令，修改原始的C程序（program.c）,得到被修改的源程序。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-07-29T09:54:51+08:00"
-              content="2021-07-29">
-          07-29
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/07/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/" itemprop="url">
-            <span itemprop="name">深入理解计算机系统（一）：计算机系统漫游</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CSAPP/" rel="tag"># CSAPP</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/28/%E4%BD%BF%E7%94%A8hexo-1/" rel="prev" title="macOS下GitHub+Hexo搭建个人网站">
+                  <i class="fa fa-chevron-left"></i> macOS下GitHub+Hexo搭建个人网站
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-07-28T15:39:00+08:00"
-              content="2021-07-28">
-          07-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/07/28/%E4%BD%BF%E7%94%A8hexo-1/" itemprop="url">
-            <span itemprop="name">macOS下GitHub+Hexo搭建个人网站</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
+</div>
 
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
 
 </div>
   </main>
