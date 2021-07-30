@@ -214,10 +214,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-07-29 09:54:51 / 修改时间：17:33:41" itemprop="dateCreated datePublished" datetime="2021-07-29T09:54:51+08:00">2021-07-29</time>
+      <time title="创建时间：2021-07-29 09:54:51" itemprop="dateCreated datePublished" datetime="2021-07-29T09:54:51+08:00">2021-07-29</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-07-30 15:41:51" itemprop="dateModified" datetime="2021-07-30T15:41:51+08:00">2021-07-30</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -238,11 +244,31 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h5 id="1-什么是源程序"><a href="#1-什么是源程序" class="headerlink" title="1.什么是源程序"></a>1.什么是源程序</h5><p>一个由0和1组成的位序列。位被组织处8个一组，称为字节，每个字节都表示程序中某个文本字符。</p>
+          <p><em><strong>hello.c</strong></em></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;hello,world\n&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;　</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-什么是源程序"><a href="#1-什么是源程序" class="headerlink" title="1.什么是源程序"></a>1.什么是源程序</h5><p>一个由0和1组成的位序列。位被组织处8个一组，称为字节，每个字节都表示程序中某个文本字符。hello.c程序以字节序列的方式存储在文件中。每个字节都有一个整数值对应某些字符。像hello.c这样只有ASCII字符构成的文件称为文本文件，所有其他文件称为二进制文件。</p>
 <h5 id="2-编译器驱动程序-compiler-driver"><a href="#2-编译器驱动程序-compiler-driver" class="headerlink" title="2.编译器驱动程序(compiler driver)"></a>2.编译器驱动程序(compiler driver)</h5><p>在unix系统上执行<strong>编译器驱动程序</strong>将原文件转换为<strong>可执行目标文件</strong></p>
-<p>执行过程由四个阶段。</p>
-<p><strong>·预处理阶段</strong></p>
-<p>​    预处理器(cpp)根据字符#开头的命令，修改原始的C程序（program.c）,得到被修改的源程序。</p>
+<p>执行过程分为四个阶段，以hello.c程序为例</p>
+<ol>
+<li><p><strong>预处理阶段</strong></p>
+<p>预处理器(cpp)根据字符#开头的命令，修改原始的hello.c（文本）,得到被修改的源程序（文本）。通常以.i作为文件扩展名。</p>
+</li>
+<li><p><strong>编译阶段</strong></p>
+<p>编译器（ccl）将hello.i（文本）翻译汇编程序hello.s（文本）。hello.s包含一个汇编语言程序,如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">main:</span><br><span class="line">	subq		$8,%rsp</span><br><span class="line">	movl		$.LCO,%edi</span><br><span class="line">	call    puts</span><br><span class="line">	movl		$0,%eax</span><br><span class="line">	addq		$8,%rsp</span><br><span class="line">	ret</span><br></pre></td></tr></table></figure>
+
+<p>汇编语言为不同高级语言的不同编译器提供通用的输出语言。</p>
+</li>
+<li><p><strong>汇编阶段</strong></p>
+<p>汇编器（as）将hello.s翻译成机器语言指令，把这些指令打包成<em>可重定位目标程序</em>的格式，得到文件hello.o（二进制）。</p>
+</li>
+<li><p><strong>链接阶段</strong></p>
+<p>hello程序调用了printf函数，它是每个C编译器都提供的标准C库中的一个函数。printf函数存在于单独的预编译好的目标文件printf.o中，链接器（ld）负责将printf.0合并到hello.o中。最终得到hello文件为<em>可执行目标文件</em>，可以被加载到内存中，由系统执行。</p>
+</li>
+</ol>
+<h5 id="3-shell"><a href="#3-shell" class="headerlink" title="3.shell"></a>3.shell</h5><p>​    shell是一个命令行解释器，它输出一个字符，等待输入一个命令行，然后执行这个命令。若输入的第一个单词不是shell内置的命令，那shell就会把他当作是一个可执行文件的名字，加载并运行。</p>
+<p><strong>4.系统的硬件组成</strong></p>
 
       
     </div>
