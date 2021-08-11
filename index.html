@@ -217,7 +217,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-08-11 09:42:41 / 修改时间：11:51:33" itemprop="dateCreated datePublished" datetime="2021-08-11T09:42:41+08:00">2021-08-11</time>
+      <time title="创建时间：2021-08-11 09:42:41 / 修改时间：11:53:20" itemprop="dateCreated datePublished" datetime="2021-08-11T09:42:41+08:00">2021-08-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -242,17 +242,14 @@
           <p><strong>已知一个长度为 n 的数组，预先按照升序排列，经由 1 到 n 次 旋转 后，得到输入数组。例如，原数组 nums = [0,1,2,4,5,6,7] 在变化后可能得到：</strong><br><strong>若旋转 4 次，则可以得到 [4,5,6,7,0,1,2]</strong><br><strong>若旋转 7 次，则可以得到 [0,1,2,4,5,6,7]</strong><br><strong>注意，数组 [a[0], a[1], a[2], …, a[n-1]] 旋转一次 的结果为数组 [a[n-1], a[0], a[1], a[2], …, a[n-2]] 。</strong></p>
 <p><strong>给你一个元素值 互不相同 的数组 nums ，它原来是一个升序排列的数组，并按上述情形进行了多次旋转。请你找出并返回数组中的 最小元素 。</strong></p>
 <p><em>来源：力扣（LeetCode）<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array">https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array</a></em></p>
-<p>首先想到顺序查找，代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findMin</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>()==<span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>,j=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(nums[i]&lt;nums[j])&#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">            <span class="keyword">if</span>(j==nums.<span class="built_in">size</span>()) <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums[j];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度O(n)</p>
-<p>接下来按照题目提示，考虑二分查找的算法。</p>
-<p>对于旋转过的有序数组，我们不能直接通过比较当前选择的数组元素与目标元素的大小来判断它的下标比目标元素下表小还是大。可以发现，旋转后的数组，以最小值为界，最小值右边的元素都小于数组最后一位元素X（不包括X本身），最小值左边的元素都大于元素X。我们可以通过比较选择的数组元素与X的大小，来判断当前下标在目标值（最小值）的左边还是右边。代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findMin</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">      	<span class="keyword">int</span> high = nums.<span class="built_in">size</span>()<span class="number">-1</span>; </span><br><span class="line">        <span class="keyword">int</span> pivot;</span><br><span class="line">        <span class="keyword">while</span>(low&lt;high)&#123;</span><br><span class="line">            pivot = (high-low)/<span class="number">2</span>+low;</span><br><span class="line">            <span class="keyword">if</span>(nums[pivot]&gt;nums[high])&#123;</span><br><span class="line">                low = pivot+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">          	<span class="keyword">else</span>&#123;</span><br><span class="line">                high = pivot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="keyword">return</span> nums[low];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度O(logn)</p>
-<p><strong>过程中遇到的两个问题：</strong><br>1.当区间数组长度为1时，pivot=high，且数组元素不重复，所以不用考虑nums[pivot]==nums[high]的情况。<br>2.当nums[pivot]&gt;nums[high]时，nums[pivot]大于最小值，所有low=pivot+1；<br>   当nums[pivot]&lt;nums[high]时，nums[pivot]大于等于最小值，所以high=pivot，否则可能跳过最小值；</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/08/11/LeetCode153/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
