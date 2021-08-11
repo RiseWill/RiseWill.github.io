@@ -20,15 +20,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"risewill.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="hello.c 123456#include &lt;stdio.h&gt;int main()&amp;#123;  printf(&quot;hello,world\n&quot;);  return 0;&amp;#125;　  1.什么是源程序一个由0和1组成的位序列。位被组织处8个一组，称为字节，每个字节都表示程序中某个文本字符。hello.c程序以字节序列的方式存储在文件中。每个字节都有一个整数值对应">
+<meta name="description" content="Caspar的博客">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解计算机系统（一）：计算机系统漫游">
+<meta property="og:title" content="深入理解计算机系统">
 <meta property="og:url" content="https://risewill.github.io/2021/07/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
 <meta property="og:site_name" content="Casapr&#39;s Blog">
-<meta property="og:description" content="hello.c 123456#include &lt;stdio.h&gt;int main()&amp;#123;  printf(&quot;hello,world\n&quot;);  return 0;&amp;#125;　  1.什么是源程序一个由0和1组成的位序列。位被组织处8个一组，称为字节，每个字节都表示程序中某个文本字符。hello.c程序以字节序列的方式存储在文件中。每个字节都有一个整数值对应">
+<meta property="og:description" content="Caspar的博客">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-29T01:54:51.000Z">
-<meta property="article:modified_time" content="2021-07-30T07:41:51.655Z">
+<meta property="article:modified_time" content="2021-08-06T02:07:48.164Z">
 <meta property="article:author" content="Caspar">
 <meta property="article:tag" content="CSAPP">
 <meta name="twitter:card" content="summary">
@@ -38,10 +38,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://risewill.github.io/2021/07/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/","path":"2021/07/29/深入理解计算机系统（一）/","title":"深入理解计算机系统（一）：计算机系统漫游"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://risewill.github.io/2021/07/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/","path":"2021/07/29/深入理解计算机系统（一）/","title":"深入理解计算机系统"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>深入理解计算机系统（一）：计算机系统漫游 | Casapr's Blog</title>
+<title>深入理解计算机系统 | Casapr's Blog</title>
   
 
 
@@ -107,7 +107,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -120,7 +120,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%BA%90%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">1.什么是源程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E7%BC%96%E8%AF%91%E5%99%A8%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F-compiler-driver"><span class="nav-number">2.</span> <span class="nav-text">2.编译器驱动程序(compiler driver)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-shell"><span class="nav-number">3.</span> <span class="nav-text">3.shell</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -144,12 +143,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
+            <a href="/tags/">
         <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">标签</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
@@ -209,7 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          深入理解计算机系统（一）：计算机系统漫游
+          深入理解计算机系统
         </h1>
 
         <div class="post-meta-container">
@@ -227,7 +227,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-30 15:41:51" itemprop="dateModified" datetime="2021-07-30T15:41:51+08:00">2021-07-30</time>
+        <time title="修改时间：2021-08-06 10:07:48" itemprop="dateModified" datetime="2021-08-06T10:07:48+08:00">2021-08-06</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -249,32 +249,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><em><strong>hello.c</strong></em></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;hello,world\n&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;　</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-什么是源程序"><a href="#1-什么是源程序" class="headerlink" title="1.什么是源程序"></a>1.什么是源程序</h5><p>一个由0和1组成的位序列。位被组织处8个一组，称为字节，每个字节都表示程序中某个文本字符。hello.c程序以字节序列的方式存储在文件中。每个字节都有一个整数值对应某些字符。像hello.c这样只有ASCII字符构成的文件称为文本文件，所有其他文件称为二进制文件。</p>
-<h5 id="2-编译器驱动程序-compiler-driver"><a href="#2-编译器驱动程序-compiler-driver" class="headerlink" title="2.编译器驱动程序(compiler driver)"></a>2.编译器驱动程序(compiler driver)</h5><p>在unix系统上执行<strong>编译器驱动程序</strong>将原文件转换为<strong>可执行目标文件</strong></p>
-<p>执行过程分为四个阶段，以hello.c程序为例</p>
-<ol>
-<li><p><strong>预处理阶段</strong></p>
-<p>预处理器(cpp)根据字符#开头的命令，修改原始的hello.c（文本）,得到被修改的源程序（文本）。通常以.i作为文件扩展名。</p>
-</li>
-<li><p><strong>编译阶段</strong></p>
-<p>编译器（ccl）将hello.i（文本）翻译汇编程序hello.s（文本）。hello.s包含一个汇编语言程序,如下所示：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">main:</span><br><span class="line">	subq		$8,%rsp</span><br><span class="line">	movl		$.LCO,%edi</span><br><span class="line">	call    puts</span><br><span class="line">	movl		$0,%eax</span><br><span class="line">	addq		$8,%rsp</span><br><span class="line">	ret</span><br></pre></td></tr></table></figure>
-
-<p>汇编语言为不同高级语言的不同编译器提供通用的输出语言。</p>
-</li>
-<li><p><strong>汇编阶段</strong></p>
-<p>汇编器（as）将hello.s翻译成机器语言指令，把这些指令打包成<em>可重定位目标程序</em>的格式，得到文件hello.o（二进制）。</p>
-</li>
-<li><p><strong>链接阶段</strong></p>
-<p>hello程序调用了printf函数，它是每个C编译器都提供的标准C库中的一个函数。printf函数存在于单独的预编译好的目标文件printf.o中，链接器（ld）负责将printf.0合并到hello.o中。最终得到hello文件为<em>可执行目标文件</em>，可以被加载到内存中，由系统执行。</p>
-</li>
-</ol>
-<h5 id="3-shell"><a href="#3-shell" class="headerlink" title="3.shell"></a>3.shell</h5><p>​    shell是一个命令行解释器，它输出一个字符，等待输入一个命令行，然后执行这个命令。若输入的第一个单词不是shell内置的命令，那shell就会把他当作是一个可执行文件的名字，加载并运行。</p>
-<p><strong>4.系统的硬件组成</strong></p>
-
+        
     </div>
 
     
@@ -295,8 +270,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/08/03/LeetCode34/" rel="next" title="LeetCode34">
-                  LeetCode34 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/08/11/LeetCode153/" rel="next" title="">
+                   <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
